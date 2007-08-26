@@ -5,16 +5,18 @@ Version:	0.0.9
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	http://www.ryxperience.com/storage/screenlets-0.0.9.tar.bz2
+Source0:	http://www.ryxperience.com/storage/%{name}-%{version}.tar.bz2
 # Source0-md5:	b8e1246dcdd47b2bfcb57b8db7ad28d7
 URL:		http://forum.compiz-fusion.org/showthread.php?t=323
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.219
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Small applications that are similar to OS X's widgets on the Dashboard.
+Small applications that are similar to OS X's widgets on the
+Dashboard.
 
 %description -l pl.UTF-8
 Małe aplikacje podobne do widgetów na Dashboardzie w OS X.
