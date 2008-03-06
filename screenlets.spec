@@ -1,16 +1,18 @@
 Summary:	Small applications that are similar to OS X's widgets on the Dashboard
 Summary(pl.UTF-8):	Małe aplikacje podobne do widgetów na Dashboardzie w OS X
 Name:		screenlets
-Version:	0.0.9
+Version:	0.0.12
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	http://www.ryxperience.com/storage/%{name}-%{version}.tar.bz2
-# Source0-md5:	b8e1246dcdd47b2bfcb57b8db7ad28d7
-URL:		http://forum.compiz-fusion.org/showthread.php?t=323
+Source0:	https://code.launchpad.net/screenlets/trunk/0.0.12/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	dafcffd3a1441e910d60ebfb227ed189
+URL:		http://www.screenlets.org/
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
+Requires(post,postun):	desktop-file-utils
+Requires:	python-pyxdg
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -22,9 +24,7 @@ Dashboard.
 Małe aplikacje podobne do widgetów na Dashboardzie w OS X.
 
 %prep
-%setup -q
-
-sed -i -e "s@'/usr/local'@'/usr'@g" src/lib/__init__.py setup.py
+%setup -q -n %{name}
 
 %build
 python setup.py build
@@ -39,16 +39,26 @@ python setup.py install \
 
 %py_postclean %{py_sitescriptdir}/%{name}
 
-rm $RPM_BUILD_ROOT%{_bindir}/screenletsd
-rm $RPM_BUILD_ROOT%{_datadir}/screenlets/add-screenlet.py
-rm $RPM_BUILD_ROOT%{_datadir}/screenlets/screenletsd.py
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_desktop_database_post
+
+%postun
+%update_desktop_database_postun
 
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG README TODO TODO-0.1.0
+%{_bindir}/screenlets-manager
+%{_bindir}/screenlets-packager
+%{_bindir}/screenletsd
+%{_desktopdir}/screenlets-manager.desktop
+%{_iconsdir}/screenlets.svg
 %{py_sitescriptdir}/%{name}
 %{py_sitescriptdir}/%{name}*.egg-info
 %{_datadir}/screenlets
+%dir %{_datadir}/screenlets-manager
+%{_datadir}/screenlets-manager/*.svg
+%attr(755,root,root) %{_datadir}/screenlets-manager/*.py
