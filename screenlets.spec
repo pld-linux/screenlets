@@ -39,7 +39,7 @@ python setup.py install \
 	--root $RPM_BUILD_ROOT \
 	--prefix %{_prefix}
 
-%find_lang %{name} --with-gnome
+%find_lang %{name} --all-name
 
 %py_postclean %{py_sitescriptdir}/%{name}
 
@@ -62,5 +62,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/%{name}*.egg-info
 %{_datadir}/screenlets
 %dir %{_datadir}/screenlets-manager
-%{_datadir}/screenlets-manager/*
+%{_datadir}/screenlets-manager/*[!.py]
 %attr(755,root,root) %{_datadir}/screenlets-manager/*.py
