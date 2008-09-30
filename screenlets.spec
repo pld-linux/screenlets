@@ -10,11 +10,11 @@ Source0:	https://code.launchpad.net/screenlets/trunk/%{version}/+download/%{name
 URL:		http://www.screenlets.org/
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.234
 Requires(post,postun):	desktop-file-utils
-Requires:	python-pyxdg
 Requires:	python-gnome-desktop-keyring
 Requires:	python-gnome-desktop-libwnck
+Requires:	python-pyxdg
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -29,16 +29,17 @@ Małe aplikacje podobne do widgetów na Dashboardzie w OS X.
 %setup -q -n %{name}
 
 %build
-python setup.py build
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-python setup.py install \
+%{__python} setup.py install \
 	--optimize=2 \
 	--root $RPM_BUILD_ROOT \
 	--prefix %{_prefix}
 
+# screenlets and screenlets-manager
 %find_lang %{name} --all-name
 
 %py_postclean %{py_sitescriptdir}/%{name}
@@ -59,8 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/screenlets-manager.desktop
 %{_iconsdir}/screenlets.svg
 %{py_sitescriptdir}/%{name}
-%{py_sitescriptdir}/%{name}*.egg-info
+%{py_sitescriptdir}/%{name}-*.egg-info
 %{_datadir}/screenlets
 %dir %{_datadir}/screenlets-manager
-%{_datadir}/screenlets-manager/*[!.py]
 %attr(755,root,root) %{_datadir}/screenlets-manager/*.py
+%{_datadir}/screenlets-manager/*.png
+%{_datadir}/screenlets-manager/*.svg
+%{_datadir}/screenlets-manager/prefs.js
