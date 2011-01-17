@@ -2,7 +2,7 @@ Summary:	Small applications that are similar to OS X's widgets on the Dashboard
 Summary(pl.UTF-8):	Małe aplikacje podobne do widgetów na Dashboardzie w OS X
 Name:		screenlets
 Version:	0.1.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	https://code.launchpad.net/screenlets/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
@@ -56,7 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc CHANGELOG README TODO
-%{_bindir}/screenlets*
+%attr(755,root,root) %{_bindir}/screenlets
+%attr(755,root,root) %{_bindir}/screenlets-daemon
+%attr(755,root,root) %{_bindir}/screenlets-manager
+%attr(755,root,root) %{_bindir}/screenlets-packager
+%attr(755,root,root) %{_bindir}/screenletsd
 %{_desktopdir}/screenlets-manager.desktop
 %{_iconsdir}/screenlets.svg
 %{py_sitescriptdir}/%{name}
