@@ -8,6 +8,7 @@ Group:		X11/Applications
 Source0:	https://code.launchpad.net/screenlets/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
 # Source0-md5:	8bab8052ff5555481fdbe8a5a6310706
 URL:		http://www.screenlets.org/
+BuildRequires:	gettext-devel
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.234
